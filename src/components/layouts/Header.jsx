@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import NavigationContext from "../../contexts/NavigationContext";
 import logo from "./../../assets/images/logo.png";
 import {
   ArrowDown,
@@ -12,14 +13,9 @@ import {
 import { motion } from "framer-motion";
 
 export const Header = ({ scrollRefs }) => {
-  const [visibleMObile, setVisibleMObile] = useState(false);
-  const handleFadeIn = () => {
-    setVisibleMObile((prev) => {
-      const newState = !prev;
-      // document.body.style.overflow = newState ? "hidden" : "visible";
-      return newState;
-    });
-  };
+  const { mobileNavOpen, setMobileNavOpen } = useContext(NavigationContext);
+  const toggleMobileNav = () => setMobileNavOpen((prev) => !prev);
+  const closeMobileNav = () => setMobileNavOpen(false);
 
   const navigationItems = [
     {
@@ -117,7 +113,7 @@ export const Header = ({ scrollRefs }) => {
     }
   };
   const scrollToDivMobile = (rerName) => {
-    handleFadeIn();
+    closeMobileNav();
     const isHomePage = window.location.pathname === "/";
     if (!isHomePage) {
       navigate(`/?scrollTo=${rerName}`);
@@ -187,7 +183,7 @@ export const Header = ({ scrollRefs }) => {
           })}
         </div>
         <div
-          onClick={handleFadeIn}
+          onClick={toggleMobileNav}
           className="bg-[#9DC16E54] p-2 rounded-sm md:hidden"
         >
           <HamburgerIcon />
@@ -197,20 +193,24 @@ export const Header = ({ scrollRefs }) => {
             href="https://www.facebook.com/htincometax/"
             target="_blank"
             rel="noopener noreferrer"
+            className="cursor-pointer inline-flex"
           >
             <FacobookNewIcon />
           </a>
-          <a href="tel:6479826014">
+          <a href="tel:6479826014" className="cursor-pointer inline-flex">
             <CallNewIcon />
           </a>
-          <a href="mailto:htincometax@outlook.com">
+          <a
+            href="mailto:htincometax@gmail.com"
+            className="cursor-pointer inline-flex"
+          >
             <MailNewIcon />
           </a>
         </div>
 
         <div
           className={`fixed w-full pb-[20%] inset-0 top-0 left-0 bottom-0 bg-[#DFEBCF] flex flex-col items-center h-[100vh]  transition transform duration-500 ease-in-out fade-up-enter-active ${
-            visibleMObile ? "fade-up-enter-to" : "fade-up-enter-from "
+            mobileNavOpen ? "fade-up-enter-to" : "fade-up-enter-from "
           } `}
         >
           <div className="flex items-center justify-between w-full p-[20px]">
@@ -219,7 +219,7 @@ export const Header = ({ scrollRefs }) => {
             </Link>
             <span
               className=" bg-[#9DC16E54] p-1 rounded-sm"
-              onClick={handleFadeIn}
+              onClick={toggleMobileNav}
             >
               <CloseIcon />
             </span>
@@ -235,24 +235,29 @@ export const Header = ({ scrollRefs }) => {
                   type={item.type}
                   scrollToDivMobile={scrollToDivMobile}
                   children={item.children}
+                  closeMobileNav={closeMobileNav}
                 />
               );
             })}
 
             <div className="w-full flex gap-5 mt-10 justify-center items-center ">
-            <a
-            href="https://www.facebook.com/htincometax/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FacobookNewIcon />
-          </a>
-          <a href="tel:6479826014">
-            <CallNewIcon />
-          </a>
-          <a href="mailto:htincometax@outlook.com">
-            <MailNewIcon />
-          </a>
+              <a
+                href="https://www.facebook.com/htincometax/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cursor-pointer inline-flex"
+              >
+                <FacobookNewIcon />
+              </a>
+              <a href="tel:6479826014" className="cursor-pointer inline-flex">
+                <CallNewIcon />
+              </a>
+              <a
+                href="mailto:htincometax@gmail.com"
+                className="cursor-pointer inline-flex"
+              >
+                <MailNewIcon />
+              </a>
             </div>
           </div>
           {/* <div className=" w-full flex justify-center mt-auto">
@@ -306,7 +311,8 @@ const NavigationItemMobile = ({
   children,
   id,
   type,
-  scrollToDivMobile
+  scrollToDivMobile,
+  closeMobileNav
 }) => {
   return (
     <>
@@ -329,7 +335,7 @@ const NavigationItemMobile = ({
         <Link
           to={link}
           onClick={() => {
-            handleFadeIn();
+            closeMobileNav();
             document.body.style.overflow = "visible"; // Ensure scrolling is enabled
           }}
           className="text-black font-bold  font-kulim text-xl flex items-center gap-1 "

@@ -193,16 +193,20 @@ export const Footer = ({ scrollRefs }) => {
               href="https://www.facebook.com/htincometax/"
               target="_blank"
               rel="noopener noreferrer"
+              className="cursor-pointer inline-flex"
             >
               {" "}
               <FooterFacebookIcon />{" "}
             </a>
-            <a href="tel:6479826014">
+            <a href="tel:6479826014" className="cursor-pointer inline-flex">
               {" "}
               <FooterCallIcon />{" "}
             </a>
-            <a href="mailto:htincometax@outlook.com">
-       
+            <a
+              href="mailto:htincometax@gmail.com"
+              className="cursor-pointer inline-flex"
+            >
+              {" "}
               <FooterMailIcon />{" "}
             </a>
           </div>

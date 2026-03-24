@@ -1,4 +1,4 @@
-import React, { createContext, useRef } from "react";
+import React, { createContext, useRef, useState } from "react";
 
 const NavigationContext = createContext();
 
@@ -11,7 +11,11 @@ export const HomeProvider = ({ children }) => {
     faq: useRef(null),
   };
 
-  return <NavigationContext.Provider value={scrollRefs}>{children}</NavigationContext.Provider>;
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+
+  const value = { scrollRefs, mobileNavOpen, setMobileNavOpen };
+
+  return <NavigationContext.Provider value={value}>{children}</NavigationContext.Provider>;
 };
 
 export default NavigationContext;

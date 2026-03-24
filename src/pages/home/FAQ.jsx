@@ -6,8 +6,6 @@ import {
   AccordionHeader,
   AccordionBody
 } from "@material-tailwind/react";
-import { faqItems } from "../../utils/dataArrays";
-import { FAQRightIcon, FAQUptIcon } from "../../utils/icons";
 
 export const FAQ = ({ scrollRef, faqs }) => {
   const [open, setOpen] = useState(1);

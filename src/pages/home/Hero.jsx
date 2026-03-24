@@ -1,5 +1,4 @@
 import React from "react";
-import heroBack from "../../assets/images/hero-back.jpg";
 import heroFull from "../../assets/images/hero-full.jpg";
 import { motion } from "framer-motion";
 

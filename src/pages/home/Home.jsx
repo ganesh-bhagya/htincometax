@@ -14,7 +14,7 @@ import { Locations } from "./Locations";
 import { DownloadForm } from "./DownloadForm";
 
 export const Home = () => {
-  const scrollRefs = useContext(NavigationContext);
+  const { scrollRefs } = useContext(NavigationContext);
   useEffect(() => {
     // Scroll to the top when the component is mounted
     window.scrollTo(0, 0);
